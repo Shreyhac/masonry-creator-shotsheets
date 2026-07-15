@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Masonry Shot Sheet &middot; Interior Design &middot; Batuhan</title>
+<style>
+  :root{--ink:#1a1a1a;--muted:#6b6b6b;--line:#e6e4df;--bg:#faf9f6;--card:#ffffff;
+    --accent:#b8895f;--accent-soft:#f3ece4;--shoot:#2f6f4f;--shoot-soft:#e7f1eb;
+    --splice:#8a5a2b;--splice-soft:#f4ebe0;--edit:#2563d6;--edit-soft:#eaf1fd;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;line-height:1.5;font-size:15px}
+  .wrap{max-width:1120px;margin:0 auto;padding:32px 22px 90px}
+  header.top{border-bottom:2px solid var(--ink);padding-bottom:18px;margin-bottom:22px}
+  .kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  h1{font-size:30px;margin:6px 0 2px;line-height:1.15}
+  h1 .creator{color:var(--accent)}
+  .sub{color:var(--muted);font-size:14px}
+  .backlink{display:inline-block;margin-bottom:14px;font-size:13px;font-weight:600;color:var(--edit);text-decoration:none}
+  .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:20px 0 8px}
+  .meta .cell{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 13px}
+  .meta .lbl{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:3px}
+  .meta .val{font-size:14px;font-weight:600}
+  .sources{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:16px 0}
+  .sources .lbl{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:9px}
+  .srow{display:flex;flex-wrap:wrap;gap:8px 18px}
+  .srow a{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;text-decoration:none;color:var(--edit);background:var(--edit-soft);border:1px solid #d3e2fb;border-radius:8px;padding:6px 11px}
+  .srow a:hover{background:#dce8fc}
+  .srow .step{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .reellinks{margin-top:11px;display:flex;flex-direction:column;gap:8px}
+  .reelfield{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .reelin{font:inherit;font-size:13px;padding:6px 10px;border:1px solid #cfe0fb;border-radius:8px;background:var(--edit-soft);min-width:340px;flex:1;max-width:560px;outline:none}
+  .reelin:focus{border-color:var(--edit);box-shadow:0 0 0 3px rgba(37,99,214,.12);background:#fff}
+  .reelopen{font-size:12px;font-weight:700;color:var(--edit);text-decoration:none;display:none}
+  .reelopen.on{display:inline}
+  .promptbox{background:var(--accent-soft);border:1px solid #e4d5c4;border-left:4px solid var(--accent);border-radius:8px;padding:13px 16px;margin:16px 0 4px}
+  .promptbox .lbl{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--splice);font-weight:700;margin-bottom:4px}
+  .promptbox .val{font-size:16px;font-weight:600;font-style:italic}
+  .note{background:#fff;border:1px dashed var(--line);border-radius:8px;padding:12px 15px;margin:16px 0;color:#444;font-size:13.5px}
+  .legend{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 8px;font-size:12.5px;align-items:center}
+  .tag{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 11px;font-weight:600}
+  .tag.shoot{background:var(--shoot-soft);color:var(--shoot)}
+  .tag.splice{background:var(--splice-soft);color:var(--splice)}
+  .tag.overlay{background:#eee;color:#444}
+  .toolbar{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;margin:10px 0 0;display:flex;gap:10px;align-items:center;border-bottom:1px solid var(--line)}
+  .btn{font:inherit;font-size:13px;font-weight:700;border:1px solid var(--edit);color:#fff;background:var(--edit);border-radius:8px;padding:8px 14px;cursor:pointer}
+  .btn.ghost{background:#fff;color:var(--edit)}
+  .btn:active{transform:translateY(1px)}
+  .saved{font-size:12px;color:var(--shoot);font-weight:600;opacity:0;transition:opacity .2s}
+  .saved.show{opacity:1}
+  h2.sec{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:34px 0 12px;border-bottom:1px solid var(--line);padding-bottom:7px}
+  .beat{display:grid;grid-template-columns:70px 320px 1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;align-items:start}
+  .beat .no{font-size:12px;color:var(--muted);font-weight:700}
+  .beat .time{font-size:12px;color:var(--muted);margin-top:4px;font-variant-numeric:tabular-nums}
+  .beat .kind{margin-top:9px}
+  .frames{display:flex;gap:10px}
+  .fr{width:146px;flex:0 0 auto}
+  .fr .flbl{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:5px}
+  .fr.reel .flbl{color:var(--muted)}
+  .fr.mas .flbl{color:var(--splice)}
+  .fr img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:8px;border:1px solid var(--line);background:#f0eee9;display:block}
+  .fr.mas img{border-color:#e0cbb2}
+  .fr.film{display:flex;flex-direction:column}
+  .fr.film .box{width:100%;aspect-ratio:9/16;border-radius:8px;border:1.5px dashed var(--shoot);background:var(--shoot-soft);display:flex;align-items:center;justify-content:center;text-align:center;color:var(--shoot);font-size:11px;font-weight:700;padding:10px;letter-spacing:.03em}
+  .ontext-wrap{margin:0 0 9px}
+  .ontext-lbl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--edit);font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+  .pencil{font-size:11px}
+  .ontext{font-size:17px;font-weight:700;line-height:1.3;color:var(--ink);background:var(--edit-soft);border:1px solid #cfe0fb;border-radius:8px;padding:9px 12px;outline:none}
+  .ontext:focus{border-color:var(--edit);box-shadow:0 0 0 3px rgba(37,99,214,.12);background:#fff}
+  .reeltext{font-size:12px;color:var(--muted);margin:0 0 8px}
+  .reeltext b{color:#555}
+  .field{font-size:13.5px;margin:3px 0}
+  .field b{color:#333}
+  .clip{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;background:#f5f2ec;border:1px solid var(--line);border-radius:6px;padding:2px 7px;display:inline-block;margin-top:2px;text-decoration:none;color:#333}
+  a.clip:hover{background:#ece5da;border-color:#d8cdba}
+  a.clip .ext{color:var(--edit);font-weight:700}
+  footer{margin-top:40px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:16px}
+  @media (max-width:760px){.beat{grid-template-columns:56px 1fr}.beat .frames{grid-column:1 / -1}.beat .txt{grid-column:1 / -1}}
+  @media print{body{background:#fff}.beat,.meta .cell{break-inside:avoid}.toolbar{display:none}.ontext{background:#fff;border-color:#ccc}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="backlink" href="../">&larr; All shot sheets</a>
+<header class="top">
+  <div class="kicker">Masonry UGC &middot; Creator Shot Sheet</div>
+  <h1>Interior Design <span class="creator">&middot; Batuhan</span></h1>
+  <div class="sub">Vertical 9:16 reel. Target 38 to 44 seconds. No voiceover. Mirrors a numbered step-by-step reel. Each row shows the reel frame to mirror, the Masonry B-roll to splice, and the editable on-frame text.</div>
+  <div class="meta"><div class="cell"><div class="lbl">Skill</div><div class="val">Interior Design</div></div><div class="cell"><div class="lbl">Model</div><div class="val">Nano Banana 2</div></div><div class="cell"><div class="lbl">Demo input</div><div class="val">Photo of a bedroom (as recorded)</div></div><div class="cell"><div class="lbl">Length</div><div class="val">~42s, full walkthrough</div></div><div class="cell"><div class="lbl">Reference reel</div><div class="val">duedillinger (numbered steps)</div></div><div class="cell"><div class="lbl">CTA</div><div class="val">comment &quot;ROOM&quot;</div></div></div>
+  <div class="sources"><div class="lbl">Source videos to watch (Google Drive)</div>
+    <div class="srow"><a href="https://drive.google.com/file/d/1tUrcqbn6YQNJv48MO8VTAa6ZUo4ggDLV/view" target="_blank"><span class="step">Step 1</span> Open URL · IMG_7901.MOV</a><a href="https://drive.google.com/file/d/19ATqTbu3YU5nj7LGjOsEBZbXPS5ytUyL/view" target="_blank"><span class="step">Step 2</span> Pick skill · IMG_7758.mov</a><a href="https://drive.google.com/file/d/1y5upP2KzGWoASJEQ04HnqhkIuF84NU-9/view" target="_blank"><span class="step">Step 3</span> Prompt + chat + output · interior_design_1.mp4</a></div>
+    <div class="reellinks">
+      <div class="reelfield"><span class="step">Reference reel (original link)</span>
+        <input class="reelin" data-id="reelOrig" type="text" placeholder="paste duedillinger reel link here (manual for now)">
+        <a class="reelopen" data-for="reelOrig" target="_blank">open &#8599;</a></div>
+      <div class="reelfield"><span class="step">Downloaded copy (Drive)</span>
+        <input class="reelin" data-id="reelDrive" type="text" placeholder="Drive link of the downloaded reel (added later)">
+        <a class="reelopen" data-for="reelDrive" target="_blank">open &#8599;</a></div>
+    </div>
+  </div>
+  <div class="promptbox"><div class="lbl">Exact prompt to type (Step 3)</div><div class="val">"Here is a photo of my room. I want to imagine 10 different interior design styles."</div></div>
+</header>
+<div class="note"><b>How to read this sheet.</b> Every row has two frames: <b>REEL REF</b> (the shot to mirror) and <b>MASONRY SPLICE</b> (the exact Masonry screen to cut in, linked to its Drive clip + timecode). The reel is a numbered how-to, so the captions read as clean numbered steps. The blue <b>ON-FRAME TEXT</b> box is editable and autosaves in this browser. Green dashed frames mean Batuhan films himself.</div>
+<div class="legend"><span class="tag shoot">CREATOR FILMS</span><span class="tag splice">SPLICE MASONRY B-ROLL</span><span class="tag overlay">TEXT OVERLAY ONLY</span></div>
+<div class="toolbar">
+  <button class="btn" onclick="exportHTML()">Save copy (.html)</button>
+  <button class="btn ghost" onclick="copyAll()">Copy all on-frame text</button>
+  <button class="btn ghost" onclick="resetAll()">Reset edits</button>
+  <span class="saved" id="savedMsg">autosaved &#10003;</span>
+</div>
+
+<h2 class="sec">The Hook · 0 to 7s (Batuhan on camera)</h2>
+<div class="beat"><div><div class="no">01</div><div class="time">0.0 to 2.5s</div><div class="kind"><span class="tag shoot">FILMS</span></div></div><div class="frames"><div class="fr reel"><div class="flbl">Reel ref · 0.5s</div><img src="thumbs/ref01.jpg" alt=""></div><div class="fr film"><div class="flbl" style="color:var(--shoot)">Batuhan films</div><div class="box">To camera, gesturing at his plain room behind him</div></div></div><div class="txt"><div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">&#9998;</span> On-frame text</div><div class="ontext" contenteditable="true" data-id="t01">redesigning my room in 10 styles without spending a rupee</div></div><p class="reeltext"><b>Reel wrote:</b> &quot;Making 2.3k without talking to people&quot;</p><div class="field"><b>Mirror:</b> reel opens with a bold money/outcome hook. Batuhan opens on his real, plain room.</div></div></div>
+<div class="beat"><div><div class="no">02</div><div class="time">2.5 to 5.0s</div><div class="kind"><span class="tag shoot">FILMS</span></div></div><div class="frames"><div class="fr reel"><div class="flbl">Reel ref · 2s</div><img src="thumbs/ref02.jpg" alt=""></div><div class="fr film"><div class="flbl" style="color:var(--shoot)">Batuhan films</div><div class="box">Phone photo of the plain bedroom, flat</div></div></div><div class="txt"><div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">&#9998;</span> On-frame text</div><div class="ontext" contenteditable="true" data-id="t02">an interior designer wanted $500 just for concepts 💀</div></div><p class="reeltext"><b>Reel wrote:</b> (setup beat)</p><div class="field"><b>Mirror:</b> the dull before shot of the room.</div></div></div>
+<div class="beat"><div><div class="no">03</div><div class="time">5.0 to 7.0s</div><div class="kind"><span class="tag shoot">FILMS</span></div></div><div class="frames"><div class="fr reel"><div class="flbl">Reel ref · 4s</div><img src="thumbs/ref03.jpg" alt=""></div><div class="fr film"><div class="flbl" style="color:var(--shoot)">Batuhan films</div><div class="box">Turn to laptop</div></div></div><div class="txt"><div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">&#9998;</span> On-frame text</div><div class="ontext" contenteditable="true" data-id="t03">so I did this instead 👇</div></div><p class="reeltext"><b>Reel wrote:</b> &quot;1. Go to Google Maps&quot;</p><div class="field"><b>Mirror:</b> pivot into the numbered steps.</div></div></div>
+
+<h2 class="sec">The Steps · 7 to 20s (mirror the reel, splice Masonry)</h2>
+<div class="beat"><div><div class="no">04</div><div class="time">7.0 to 9.5s</div><div class="kind"><span class="tag splice">SPLICE</span></div></div><div class="frames"><div class="fr reel"><div class="flbl">Reel ref · 7s</div><img src="thumbs/ref04.jpg" alt=""></div><div class="fr mas"><div class="flbl">Masonry splice</div><img src="thumbs/s1_url.jpg" alt=""></div></div><div class="txt"><div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">&#9998;</span> On-frame text</div><div class="ontext" contenteditable="true" data-id="t04">step 1: go to masonry.so</div></div><p class="reeltext"><b>Reel wrote:</b> &quot;2. Find a business with no website&quot;</p><div class="field"><b>Splice:</b> <a class="clip" href="https://drive.google.com/file/d/1tUrcqbn6YQNJv48MO8VTAa6ZUo4ggDLV/view" target="_blank">IMG_7901.MOV · 0:00 to 0:04 <span class="ext">&#8599;</span></a></div></div></div>
+<div class="beat"><div><div class="no">05</div><div class="time">9.5 to 12.0s</div><div class="kind"><span class="tag splice">SPLICE</span></div></div><div class="frames"><div class="fr reel"><div class="flbl">Reel ref · 10s</div><img src="thumbs/ref05.jpg" alt=""></div><div class="fr mas"><div class="flbl">Masonry splice</div><img src="thumbs/s2_select.jpg" alt=""></div></div><div class="txt"><div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">&#9998;</span> On-frame text</div><div class="ontext" contenteditable="true" data-id="t05">step 2: pick &quot;Interior Design&quot; + Nano Banana 2</div></div><p class="reeltext"><b>Reel wrote:</b> &quot;3. Copy all info + reviews&quot;</p><div class="field"><b>Splice:</b> <a class="clip" href="https://drive.google.com/file/d/19ATqTbu3YU5nj7LGjOsEBZbXPS5ytUyL/view" target="_blank">IMG_7758.mov · 0:00 to 0:05 <span class="ext">&#8599;</span></a></div></div></div>
+<div class="beat"><div><div class="no">06</div><div class="time">12.0 to 15.5s</div><div class="kind"><span class="tag splice">SPLICE</span></div></div><div class="frames"><div class="fr reel"><div class="flbl">Reel ref · 13s</div><img src="thumbs/ref06.jpg" alt=""></div><div class="fr mas"><div class="flbl">Masonry splice</div><img src="thumbs/s3_prompt.jpg" alt=""></div></div><div class="txt"><div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">&#9998;</span> On-frame text (label)</div><div class="ontext" contenteditable="true" data-id="t06">step 3: upload your room + type this ⬇️</div></div><div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">&#9998;</span> On-frame text (prompt overlay)</div><div class="ontext" contenteditable="true" data-id="t06b">&quot;...imagine 10 different interior design styles&quot;</div></div><p class="reeltext"><b>Reel wrote:</b> &quot;4. Go to lovable.dev&quot;</p><div class="field"><b>Splice:</b> <a class="clip" href="https://drive.google.com/file/d/1y5upP2KzGWoASJEQ04HnqhkIuF84NU-9/view" target="_blank">interior_design_1.mp4 · 0:00 to 0:03 <span class="ext">&#8599;</span></a></div></div></div>
+<div class="beat"><div><div class="no">07</div><div class="time">15.5 to 20.0s</div><div class="kind"><span class="tag splice">SPLICE</span></div></div><div class="frames"><div class="fr reel"><div class="flbl">Reel ref · 17s</div><img src="thumbs/ref07.jpg" alt=""></div><div class="fr mas"><div class="flbl">Masonry splice</div><img src="thumbs/s3_chat.jpg" alt=""></div></div><div class="txt"><div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">&#9998;</span> On-frame text</div><div class="ontext" contenteditable="true" data-id="t07">it redesigns the whole room, 10 ways</div></div><p class="reeltext"><b>Reel wrote:</b> (it builds it for you)</p><div class="field"><b>Splice:</b> <a class="clip" href="https://drive.google.com/file/d/1y5upP2KzGWoASJEQ04HnqhkIuF84NU-9/view" target="_blank">interior_design_1.mp4 · 0:06 to 0:09 <span class="ext">&#8599;</span></a></div></div></div>
+
+<h2 class="sec">The Turn · 20 to 30s (chat + reaction)</h2>
+<div class="beat"><div><div class="no">08</div><div class="time">20.0 to 23.0s</div><div class="kind"><span class="tag splice">SPLICE</span></div></div><div class="frames"><div class="fr reel"><div class="flbl">Reel ref · 21s</div><img src="thumbs/ref08.jpg" alt=""></div><div class="fr mas"><div class="flbl">Masonry splice</div><img src="thumbs/s3_clarify.jpg" alt=""></div></div><div class="txt"><div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">&#9998;</span> On-frame text</div><div class="ontext" contenteditable="true" data-id="t08">it even asks your aspect ratio 🤯</div></div><p class="reeltext"><b>Reel wrote:</b> (detail beat)</p><div class="field"><b>Splice:</b> <a class="clip" href="https://drive.google.com/file/d/1y5upP2KzGWoASJEQ04HnqhkIuF84NU-9/view" target="_blank">interior_design_1.mp4 · 0:03 to 0:06 <span class="ext">&#8599;</span></a></div></div></div>
+<div class="beat"><div><div class="no">09</div><div class="time">23.0 to 26.0s</div><div class="kind"><span class="tag shoot">FILMS</span></div></div><div class="frames"><div class="fr reel"><div class="flbl">Reel ref · 26s</div><img src="thumbs/ref09.jpg" alt=""></div><div class="fr film"><div class="flbl" style="color:var(--shoot)">Batuhan films</div><div class="box">Reaction to the screen, leaning in</div></div></div><div class="txt"><div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">&#9998;</span> On-frame text (optional)</div><div class="ontext" contenteditable="true" data-id="t09">wait these are all MY room?</div></div><p class="reeltext"><b>Reel wrote:</b> (reaction)</p><div class="field"><b>Mirror:</b> cut back to Batuhan reacting.</div></div></div>
+<div class="beat"><div><div class="no">10</div><div class="time">26.0 to 30.0s</div><div class="kind"><span class="tag splice">SPLICE</span></div></div><div class="frames"><div class="fr reel"><div class="flbl">Reel ref · 33s</div><img src="thumbs/ref10.jpg" alt=""></div><div class="fr mas"><div class="flbl">Masonry splice</div><img src="thumbs/s3_before.jpg" alt=""></div></div><div class="txt"><div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">&#9998;</span> On-frame text</div><div class="ontext" contenteditable="true" data-id="t10">same room, before ➡️ after</div></div><p class="reeltext"><b>Reel wrote:</b> (finished website)</p><div class="field"><b>Splice:</b> <a class="clip" href="https://drive.google.com/file/d/1y5upP2KzGWoASJEQ04HnqhkIuF84NU-9/view" target="_blank">interior_design_1.mp4 · 0:06 to 0:11 (before to after) <span class="ext">&#8599;</span></a></div></div></div>
+
+<h2 class="sec">The Reveal + CTA · 30 to 42s</h2>
+<div class="beat"><div><div class="no">11</div><div class="time">30.0 to 37.0s</div><div class="kind"><span class="tag splice">SPLICE</span></div></div><div class="frames"><div class="fr reel"><div class="flbl">Reel ref · 38s</div><img src="thumbs/ref11.jpg" alt=""></div><div class="fr mas"><div class="flbl">Masonry splice</div><img src="thumbs/s3_output.jpg" alt=""></div></div><div class="txt"><div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">&#9998;</span> On-frame text</div><div class="ontext" contenteditable="true" data-id="t11">10 designer rooms from ONE phone photo</div></div><p class="reeltext"><b>Reel wrote:</b> (publish / reveal)</p><div class="field"><b>Splice:</b> <a class="clip" href="https://drive.google.com/file/d/1y5upP2KzGWoASJEQ04HnqhkIuF84NU-9/view" target="_blank">interior_design_1.mp4 · 0:11 to 0:16 (slow scroll) <span class="ext">&#8599;</span></a></div></div></div>
+<div class="beat"><div><div class="no">12</div><div class="time">37.0 to 40.0s</div><div class="kind"><span class="tag splice">SPLICE</span></div></div><div class="frames"><div class="fr reel"><div class="flbl">Reel ref · 41s</div><img src="thumbs/ref12.jpg" alt=""></div><div class="fr mas"><div class="flbl">Masonry splice</div><img src="thumbs/s3_output.jpg" alt=""></div></div><div class="txt"><div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">&#9998;</span> On-frame text</div><div class="ontext" contenteditable="true" data-id="t12">and you honestly can&#x27;t tell it&#x27;s AI</div></div><p class="reeltext"><b>Reel wrote:</b> (hero hold)</p><div class="field"><b>Splice:</b> <a class="clip" href="https://drive.google.com/file/d/1y5upP2KzGWoASJEQ04HnqhkIuF84NU-9/view" target="_blank">interior_design_1.mp4 · 0:14 to 0:16 (hero) <span class="ext">&#8599;</span></a></div></div></div>
+<div class="beat"><div><div class="no">13</div><div class="time">40.0 to 42.0s</div><div class="kind"><span class="tag overlay">OVERLAY</span></div></div><div class="frames"><div class="fr reel"><div class="flbl">Reel ref · 43s</div><img src="thumbs/ref13.jpg" alt=""></div><div class="fr mas"><div class="flbl">Masonry splice</div><img src="thumbs/s3_output.jpg" alt=""></div></div><div class="txt"><div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">&#9998;</span> On-frame text</div><div class="ontext" contenteditable="true" data-id="t13">comment &quot;ROOM&quot; for the link 👇</div></div><p class="reeltext"><b>Reel wrote:</b> (CTA / next business)</p><div class="field"><b>Source:</b> text overlay on the last output frame (freeze).</div></div></div>
+
+<div class="note" style="margin-top:26px"><b>Swap point.</b> To personalize, Batuhan photographs his own room in frame 06 and the reveal frames show HIS room redesigned. By default it uses the pre-recorded B-roll.</div>
+<footer>Masonry UGC creator system · Interior Design · Batuhan · reel frames from duedillinger, Masonry B-roll from Drive Steps 1 to 3. Editable, autosaves in this browser. No voiceover.</footer>
+</div>
+<script>
+  var KEY='intbatuhan-v1';
+  var fields=[].slice.call(document.querySelectorAll('.ontext'));
+  var inputs=[].slice.call(document.querySelectorAll('.reelin'));
+  var savedMsg=document.getElementById('savedMsg');
+  var defaults={}; fields.forEach(function(f){defaults[f.dataset.id]=f.textContent;});
+  function refreshOpenLinks(){document.querySelectorAll('.reelopen').forEach(function(a){
+    var inp=document.querySelector('.reelin[data-id="'+a.dataset.for+'"]');var v=inp&&inp.value.trim();
+    if(v){a.href=v;a.classList.add('on');}else{a.classList.remove('on');}});}
+  function load(){var data;try{data=JSON.parse(localStorage.getItem(KEY)||'{}');}catch(e){data={};}
+    fields.forEach(function(f){if(data[f.dataset.id]!==undefined)f.textContent=data[f.dataset.id];});
+    inputs.forEach(function(i){if(data[i.dataset.id]!==undefined)i.value=data[i.dataset.id];});refreshOpenLinks();}
+  function save(){var data={};fields.forEach(function(f){data[f.dataset.id]=f.textContent;});
+    inputs.forEach(function(i){data[i.dataset.id]=i.value;});localStorage.setItem(KEY,JSON.stringify(data));
+    savedMsg.classList.add('show');clearTimeout(save._t);save._t=setTimeout(function(){savedMsg.classList.remove('show');},1000);}
+  fields.forEach(function(f){f.addEventListener('input',save);});
+  inputs.forEach(function(i){i.addEventListener('input',function(){save();refreshOpenLinks();});});
+  function copyAll(){var btn=event.target,o=btn.textContent;
+    var lines=fields.map(function(f){return f.dataset.id.toUpperCase()+': '+f.textContent.trim();}).join('\n');
+    navigator.clipboard.writeText(lines).then(function(){btn.textContent='Copied \u2713';setTimeout(function(){btn.textContent=o;},1200);});}
+  function resetAll(){if(!confirm('Reset all on-frame text to the original lines? (reel links are kept)'))return;
+    fields.forEach(function(f){f.textContent=defaults[f.dataset.id];});save();}
+  function exportHTML(){inputs.forEach(function(i){i.setAttribute('value',i.value);});
+    var doc='<!doctype html>\n<html lang="en">\n'+document.documentElement.innerHTML+'\n</html>';
+    var blob=new Blob([doc],{type:'text/html'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);
+    a.download='batuhan-interior-design_edited.html';document.body.appendChild(a);a.click();a.remove();}
+  load();
+</script>
+</body>
+</html>
