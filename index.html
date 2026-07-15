@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Masonry UGC · Creator Shot Sheets</title>
+<style>
+  :root{
+    --ink:#1a1a1a; --muted:#6b6b6b; --line:#e6e4df; --bg:#faf9f6; --card:#ffffff;
+    --accent:#b8895f; --accent-soft:#f3ece4; --shoot:#2f6f4f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;padding:44px 22px 90px}
+  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  h1{font-size:34px;margin:8px 0 4px;line-height:1.1;text-wrap:balance}
+  .sub{color:var(--muted);font-size:15px;max-width:640px}
+  h2.creator{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+    margin:42px 0 16px;border-bottom:1px solid var(--line);padding-bottom:8px;font-weight:700}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+  a.cardlink{text-decoration:none;color:inherit}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    transition:transform .12s ease, box-shadow .12s ease;height:100%}
+  a.cardlink:hover .card{transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,0,0,.08)}
+  .thumb{aspect-ratio:16/10;width:100%;object-fit:cover;background:#efece6;display:block;border-bottom:1px solid var(--line)}
+  .cbody{padding:14px 16px}
+  .cskill{font-size:18px;font-weight:700;margin:0 0 3px}
+  .cmeta{font-size:12.5px;color:var(--muted)}
+  .cgo{margin-top:10px;font-size:13px;font-weight:700;color:var(--accent)}
+  .card.soon{opacity:.62}
+  .card.soon .cgo{color:var(--muted)}
+  .pill{display:inline-block;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;
+    background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:3px 9px;margin-left:6px;vertical-align:middle}
+  .pill.soon{background:#eee;color:#888}
+  footer{margin-top:48px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:16px}
+  @media (prefers-color-scheme:dark){
+    :root{--ink:#ece7df;--muted:#a29a8d;--line:#33302b;--bg:#16130f;--card:#201c17;--accent:#d3a578;--accent-soft:#2c241b}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Masonry UGC</div>
+  <h1>Creator Shot Sheets</h1>
+  <p class="sub">Frame-by-frame shot sheets for our UGC creators. Each one maps a viral reference reel to a Masonry skill: the shot to mirror, the exact Masonry clip to splice, and the on-frame text to write. No voiceover.</p>
+
+  <h2 class="creator">Fatima · e-commerce set</h2>
+  <div class="grid">
+    <a class="cardlink" href="fatima-product-photoshoot/">
+      <div class="card">
+        <img class="thumb" src="fatima-product-photoshoot/thumbs/s3_output.jpg" alt="">
+        <div class="cbody">
+          <p class="cskill">Product Photoshoot</p>
+          <p class="cmeta">18 shots from one photo · reel: productiveashley</p>
+          <p class="cgo">Open shot sheet &rarr;</p>
+        </div>
+      </div>
+    </a>
+    <a class="cardlink" href="fatima-background-swap/">
+      <div class="card">
+        <img class="thumb" src="fatima-background-swap/thumbs/s3_output.jpg" alt="">
+        <div class="cbody">
+          <p class="cskill">Background Swap</p>
+          <p class="cmeta">15 lifestyle backgrounds · reel: chase_chappell</p>
+          <p class="cgo">Open shot sheet &rarr;</p>
+        </div>
+      </div>
+    </a>
+    <div class="card soon">
+      <div class="thumb"></div>
+      <div class="cbody">
+        <p class="cskill">Luxe Aesthetic <span class="pill soon">building</span></p>
+        <p class="cmeta">Luxury photoshoot styles</p>
+        <p class="cgo">Coming soon</p>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="creator">Batuhan · creator / lifestyle set</h2>
+  <div class="grid">
+    <div class="card soon">
+      <div class="thumb"></div>
+      <div class="cbody"><p class="cskill">Headshot Studio <span class="pill soon">building</span></p>
+        <p class="cmeta">Pro headshots for every profile</p><p class="cgo">Coming soon</p></div>
+    </div>
+    <div class="card soon">
+      <div class="thumb"></div>
+      <div class="cbody"><p class="cskill">Interior Design <span class="pill soon">building</span></p>
+        <p class="cmeta">One room, 10 styles</p><p class="cgo">Coming soon</p></div>
+    </div>
+    <div class="card soon">
+      <div class="thumb"></div>
+      <div class="cbody"><p class="cskill">Camera Angles <span class="pill soon">building</span></p>
+        <p class="cmeta">One photo, up to 20 angles</p><p class="cgo">Coming soon</p></div>
+    </div>
+  </div>
+
+  <footer>Masonry UGC creator system · share any card link with the creator, it opens directly in any browser.</footer>
+</div>
+</body>
+</html>

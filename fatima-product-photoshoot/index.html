@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Masonry Shot Sheet · Product Photoshoot · Fatima</title>
+<style>
+  :root{
+    --ink:#1a1a1a; --muted:#6b6b6b; --line:#e6e4df; --bg:#faf9f6; --card:#ffffff;
+    --accent:#b8895f; --accent-soft:#f3ece4; --shoot:#2f6f4f; --shoot-soft:#e7f1eb;
+    --splice:#8a5a2b; --splice-soft:#f4ebe0; --edit:#2563d6; --edit-soft:#eaf1fd;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;font-size:15px}
+  .wrap{max-width:1120px;margin:0 auto;padding:32px 22px 90px}
+  header.top{border-bottom:2px solid var(--ink);padding-bottom:18px;margin-bottom:22px}
+  .kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  h1{font-size:30px;margin:6px 0 2px;line-height:1.15}
+  h1 .creator{color:var(--accent)}
+  .sub{color:var(--muted);font-size:14px}
+  .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:20px 0 8px}
+  .meta .cell{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 13px}
+  .meta .lbl{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:3px}
+  .meta .val{font-size:14px;font-weight:600}
+  /* source video links panel */
+  .sources{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:16px 0}
+  .sources .lbl{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:9px}
+  .srow{display:flex;flex-wrap:wrap;gap:8px 18px}
+  .srow a,.srow span.pending{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;
+    text-decoration:none;color:var(--edit);background:var(--edit-soft);border:1px solid #d3e2fb;border-radius:8px;padding:6px 11px}
+  .srow a:hover{background:#dce8fc}
+  .srow .step{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .reellinks{margin-top:11px;display:flex;flex-direction:column;gap:8px}
+  .reelfield{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .reelin{font:inherit;font-size:13px;padding:6px 10px;border:1px solid #cfe0fb;border-radius:8px;
+    background:var(--edit-soft);min-width:340px;flex:1;max-width:560px;outline:none}
+  .reelin:focus{border-color:var(--edit);box-shadow:0 0 0 3px rgba(37,99,214,.12);background:#fff}
+  .reelopen{font-size:12px;font-weight:700;color:var(--edit);text-decoration:none;display:none}
+  .reelopen.on{display:inline}
+  .promptbox{background:var(--accent-soft);border:1px solid #e4d5c4;border-left:4px solid var(--accent);
+    border-radius:8px;padding:13px 16px;margin:16px 0 4px}
+  .promptbox .lbl{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--splice);font-weight:700;margin-bottom:4px}
+  .promptbox .val{font-size:16px;font-weight:600;font-style:italic}
+  .note{background:#fff;border:1px dashed var(--line);border-radius:8px;padding:12px 15px;margin:16px 0;color:#444;font-size:13.5px}
+  .legend{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 8px;font-size:12.5px;align-items:center}
+  .tag{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 11px;font-weight:600}
+  .tag.shoot{background:var(--shoot-soft);color:var(--shoot)}
+  .tag.splice{background:var(--splice-soft);color:var(--splice)}
+  .tag.overlay{background:#eee;color:#444}
+  /* editor toolbar */
+  .toolbar{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;margin:10px 0 0;
+    display:flex;gap:10px;align-items:center;border-bottom:1px solid var(--line)}
+  .btn{font:inherit;font-size:13px;font-weight:700;border:1px solid var(--edit);color:#fff;background:var(--edit);
+    border-radius:8px;padding:8px 14px;cursor:pointer}
+  .btn.ghost{background:#fff;color:var(--edit)}
+  .btn:active{transform:translateY(1px)}
+  .saved{font-size:12px;color:var(--shoot);font-weight:600;opacity:0;transition:opacity .2s}
+  .saved.show{opacity:1}
+  h2.sec{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+    margin:34px 0 12px;border-bottom:1px solid var(--line);padding-bottom:7px}
+  .beat{display:grid;grid-template-columns:70px 320px 1fr;gap:16px;background:var(--card);
+    border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;align-items:start}
+  .beat .no{font-size:12px;color:var(--muted);font-weight:700}
+  .beat .time{font-size:12px;color:var(--muted);margin-top:4px;font-variant-numeric:tabular-nums}
+  .beat .kind{margin-top:9px}
+  .frames{display:flex;gap:10px}
+  .fr{width:146px;flex:0 0 auto}
+  .fr .flbl{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:5px}
+  .fr.reel .flbl{color:var(--muted)}
+  .fr.mas .flbl{color:var(--splice)}
+  .fr img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:8px;border:1px solid var(--line);background:#f0eee9;display:block}
+  .fr.mas img{border-color:#e0cbb2}
+  .fr.film{display:flex;flex-direction:column}
+  .fr.film .box{width:100%;aspect-ratio:9/16;border-radius:8px;border:1.5px dashed var(--shoot);
+    background:var(--shoot-soft);display:flex;align-items:center;justify-content:center;text-align:center;
+    color:var(--shoot);font-size:11px;font-weight:700;padding:10px;letter-spacing:.03em}
+  /* on-frame editable text */
+  .ontext-wrap{margin:0 0 9px}
+  .ontext-lbl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--edit);font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+  .pencil{font-size:11px}
+  .ontext{font-size:17px;font-weight:700;line-height:1.3;color:var(--ink);
+    background:var(--edit-soft);border:1px solid #cfe0fb;border-radius:8px;padding:9px 12px;outline:none}
+  .ontext:focus{border-color:var(--edit);box-shadow:0 0 0 3px rgba(37,99,214,.12);background:#fff}
+  .ontext.empty{color:#9aa3af;font-weight:600;font-style:italic}
+  .reeltext{font-size:12px;color:var(--muted);margin:0 0 8px}
+  .reeltext b{color:#555}
+  .field{font-size:13.5px;margin:3px 0}
+  .field b{color:#333}
+  .clip{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;background:#f5f2ec;
+    border:1px solid var(--line);border-radius:6px;padding:2px 7px;display:inline-block;margin-top:2px;text-decoration:none;color:#333}
+  a.clip:hover{background:#ece5da;border-color:#d8cdba}
+  a.clip .ext{color:var(--edit);font-weight:700}
+  footer{margin-top:40px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:16px}
+  @media (max-width:760px){.beat{grid-template-columns:56px 1fr}.beat .frames{grid-column:1 / -1}.beat .txt{grid-column:1 / -1}}
+  @media print{body{background:#fff}.beat,.meta .cell{break-inside:avoid}.toolbar{display:none}.ontext{background:#fff;border-color:#ccc}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="kicker">Masonry UGC · Creator Shot Sheet</div>
+  <h1>Product Photoshoot <span class="creator">· Fatima</span></h1>
+  <div class="sub">Vertical 9:16 reel. Target 38 to 42 seconds. No voiceover. Each row shows the reference reel frame to mirror, the exact Masonry B-roll to splice, and the on-frame text to write (editable, blue boxes).</div>
+
+  <div class="meta">
+    <div class="cell"><div class="lbl">Skill</div><div class="val">Product Photoshoot</div></div>
+    <div class="cell"><div class="lbl">Model</div><div class="val">Nano Banana 2</div></div>
+    <div class="cell"><div class="lbl">Demo product</div><div class="val">Pink lip balm (as recorded)</div></div>
+    <div class="cell"><div class="lbl">Length</div><div class="val">~40s, full walkthrough</div></div>
+    <div class="cell"><div class="lbl">Reference reel</div><div class="val">productiveashley</div></div>
+    <div class="cell"><div class="lbl">CTA</div><div class="val">comment "SHOOT"</div></div>
+  </div>
+
+  <div class="sources">
+    <div class="lbl">Source videos to watch (Google Drive)</div>
+    <div class="srow">
+      <a href="https://drive.google.com/file/d/1tUrcqbn6YQNJv48MO8VTAa6ZUo4ggDLV/view" target="_blank"><span class="step">Step 1</span> Open URL · IMG_7901.MOV</a>
+      <a href="https://drive.google.com/file/d/1uWkgc0giguP1m7IQmyN1txnZf7KXwAJV/view" target="_blank"><span class="step">Step 2</span> Pick skill · IMG_7768.mov</a>
+      <a href="https://drive.google.com/file/d/1N0fF_DZMHfw3OgnK4Gh81IQU1ilI1Axj/view" target="_blank"><span class="step">Step 3</span> Prompt + chat + output · product_photoshoot_1.mov</a>
+    </div>
+    <div class="reellinks">
+      <div class="reelfield">
+        <span class="step">Reference reel (original link)</span>
+        <input class="reelin" data-id="reelOrig" type="text" placeholder="paste reel link here (manual for now)">
+        <a class="reelopen" data-for="reelOrig" target="_blank">open ↗</a>
+      </div>
+      <div class="reelfield">
+        <span class="step">Downloaded copy (Drive)</span>
+        <input class="reelin" data-id="reelDrive" type="text" placeholder="Drive link of the downloaded reel (added later)">
+        <a class="reelopen" data-for="reelDrive" target="_blank">open ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="promptbox">
+    <div class="lbl">Exact prompt to type (Step 3)</div>
+    <div class="val">"Here is my product image. Create a product photoshoot with 18 different variations."</div>
+  </div>
+</header>
+
+<div class="note">
+  <b>How to read this sheet.</b> Every row has two frames: <b>REEL REF</b> (the shot Fatima mirrors) and <b>MASONRY SPLICE</b> (the exact Masonry screen to cut in, linked to its Drive clip + timecode). The blue <b>ON-FRAME TEXT</b> box is the caption to burn onto that frame. It is editable and autosaves in this browser. Below it, "Reel wrote" shows what the reference reel put on that frame, for parallel. Green dashed frames mean Fatima films it herself.
+</div>
+
+<div class="legend">
+  <span class="tag shoot">● CREATOR FILMS</span>
+  <span class="tag splice">● SPLICE MASONRY B-ROLL</span>
+  <span class="tag overlay">● TEXT OVERLAY ONLY</span>
+</div>
+
+<div class="toolbar">
+  <button class="btn" onclick="exportHTML()">Save copy (.html)</button>
+  <button class="btn ghost" onclick="copyAll()">Copy all on-frame text</button>
+  <button class="btn ghost" onclick="resetAll()">Reset edits</button>
+  <span class="saved" id="savedMsg">autosaved ✓</span>
+</div>
+
+<h2 class="sec">The Hook · 0 to 7s (Fatima on camera)</h2>
+
+<div class="beat">
+  <div><div class="no">01</div><div class="time">0.0 to 2.5s</div><div class="kind"><span class="tag shoot">FILMS</span></div></div>
+  <div class="frames">
+    <div class="fr reel"><div class="flbl">Reel ref · 0.5s</div><img src="thumbs/ref01.jpg" alt="reel hook face"></div>
+    <div class="fr film"><div class="flbl" style="color:var(--shoot)">Fatima films</div><div class="box">Straight to camera, product near face, surprised energy</div></div>
+  </div>
+  <div class="txt">
+    <div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">✎</span> On-frame text</div>
+      <div class="ontext" contenteditable="true" data-id="t01">POV: you found out you never need a product photographer again</div></div>
+    <p class="reeltext"><b>Reel wrote:</b> "im sorry... claude can do what now?? 🤯"</p>
+    <div class="field"><b>Mirror:</b> reel opens on a direct-to-camera surprised hook. Fatima does the same, holding her product near her face.</div>
+  </div>
+</div>
+
+<div class="beat">
+  <div><div class="no">02</div><div class="time">2.5 to 5.0s</div><div class="kind"><span class="tag shoot">FILMS</span></div></div>
+  <div class="frames">
+    <div class="fr reel"><div class="flbl">Reel ref · 1.4s</div><img src="thumbs/ref02.jpg" alt="reel hook face 2"></div>
+    <div class="fr film"><div class="flbl" style="color:var(--shoot)">Fatima films</div><div class="box">Cut to a dull phone photo of the product on a plain table</div></div>
+  </div>
+  <div class="txt">
+    <div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">✎</span> On-frame text</div>
+      <div class="ontext" contenteditable="true" data-id="t02">a real studio shoot = $500 + a week of waiting 💀</div></div>
+    <p class="reeltext"><b>Reel wrote:</b> (holds the hook text)</p>
+    <div class="field"><b>Mirror:</b> hold the framing, then cut to a flat, lifeless product snapshot so the payoff lands harder later.</div>
+  </div>
+</div>
+
+<div class="beat">
+  <div><div class="no">03</div><div class="time">5.0 to 7.0s</div><div class="kind"><span class="tag shoot">FILMS</span></div></div>
+  <div class="frames">
+    <div class="fr reel"><div class="flbl">Reel ref · 2.0s</div><img src="thumbs/ref09.jpg" alt="reel face turn"></div>
+    <div class="fr film"><div class="flbl" style="color:var(--shoot)">Fatima films</div><div class="box">Turn toward the laptop, small smile, "watch this"</div></div>
+  </div>
+  <div class="txt">
+    <div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">✎</span> On-frame text</div>
+      <div class="ontext" contenteditable="true" data-id="t03">so I tried this instead...</div></div>
+    <p class="reeltext"><b>Reel wrote:</b> (face beat, no text)</p>
+    <div class="field"><b>Mirror:</b> the reel pivots from face to screen. Fatima turns toward the laptop, right before the reveal.</div>
+  </div>
+</div>
+
+<h2 class="sec">The Steps · 7 to 20s (mirror the reel, splice Masonry)</h2>
+
+<div class="beat">
+  <div><div class="no">04</div><div class="time">7.0 to 9.5s</div><div class="kind"><span class="tag splice">SPLICE</span></div></div>
+  <div class="frames">
+    <div class="fr reel"><div class="flbl">Reel ref · 3.9s</div><img src="thumbs/ref04.jpg" alt="reel go to Claude"></div>
+    <div class="fr mas"><div class="flbl">Masonry splice</div><img src="thumbs/s1_url.jpg" alt="masonry.so URL"></div>
+  </div>
+  <div class="txt">
+    <div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">✎</span> On-frame text</div>
+      <div class="ontext" contenteditable="true" data-id="t04">step 1: go to masonry.so</div></div>
+    <p class="reeltext"><b>Reel wrote:</b> "go to Claude"</p>
+    <div class="field"><b>Splice:</b> <a class="clip" href="https://drive.google.com/file/d/1tUrcqbn6YQNJv48MO8VTAa6ZUo4ggDLV/view" target="_blank">IMG_7901.MOV · 0:00 to 0:04 <span class="ext">↗</span></a></div>
+  </div>
+</div>
+
+<div class="beat">
+  <div><div class="no">05</div><div class="time">9.5 to 12.0s</div><div class="kind"><span class="tag splice">SPLICE</span></div></div>
+  <div class="frames">
+    <div class="fr reel"><div class="flbl">Reel ref · 6.2s</div><img src="thumbs/ref05.jpg" alt="reel connectors"></div>
+    <div class="fr mas"><div class="flbl">Masonry splice</div><img src="thumbs/s2_select.jpg" alt="masonry skill picker"></div>
+  </div>
+  <div class="txt">
+    <div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">✎</span> On-frame text</div>
+      <div class="ontext" contenteditable="true" data-id="t05">step 2: pick "Product Photoshoot" + Nano Banana 2</div></div>
+    <p class="reeltext"><b>Reel wrote:</b> "connectors"</p>
+    <div class="field"><b>Splice:</b> <a class="clip" href="https://drive.google.com/file/d/1uWkgc0giguP1m7IQmyN1txnZf7KXwAJV/view" target="_blank">IMG_7768.mov · 0:00 to 0:05 <span class="ext">↗</span></a></div>
+  </div>
+</div>
+
+<div class="beat">
+  <div><div class="no">06</div><div class="time">12.0 to 15.5s</div><div class="kind"><span class="tag splice">SPLICE</span></div></div>
+  <div class="frames">
+    <div class="fr reel"><div class="flbl">Reel ref · 16.2s</div><img src="thumbs/ref06.jpg" alt="reel use this prompt"></div>
+    <div class="fr mas"><div class="flbl">Masonry splice</div><img src="thumbs/s3_prompt.jpg" alt="masonry prompt typed"></div>
+  </div>
+  <div class="txt">
+    <div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">✎</span> On-frame text (label)</div>
+      <div class="ontext" contenteditable="true" data-id="t06">step 3: drop your product in + type this ⬇️</div></div>
+    <div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">✎</span> On-frame text (prompt overlay)</div>
+      <div class="ontext" contenteditable="true" data-id="t06b">"...a product photoshoot with 18 different variations"</div></div>
+    <p class="reeltext"><b>Reel wrote:</b> "use this prompt"</p>
+    <div class="field"><b>Splice:</b> <a class="clip" href="https://drive.google.com/file/d/1N0fF_DZMHfw3OgnK4Gh81IQU1ilI1Axj/view" target="_blank">product_photoshoot_1.mov · 0:07 to 0:13 <span class="ext">↗</span></a></div>
+  </div>
+</div>
+
+<div class="beat">
+  <div><div class="no">07</div><div class="time">15.5 to 20.0s</div><div class="kind"><span class="tag splice">SPLICE</span></div></div>
+  <div class="frames">
+    <div class="fr reel"><div class="flbl">Reel ref · 17.1s</div><img src="thumbs/ref10.jpg" alt="reel watch it cook chat"></div>
+    <div class="fr mas"><div class="flbl">Masonry splice</div><img src="thumbs/s3_chat.jpg" alt="masonry agent plan"></div>
+  </div>
+  <div class="txt">
+    <div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">✎</span> On-frame text</div>
+      <div class="ontext" contenteditable="true" data-id="t07">it plans the whole shoot for you</div></div>
+    <p class="reeltext"><b>Reel wrote:</b> "watch it cook 🧑‍🍳"</p>
+    <div class="field"><b>Splice:</b> <a class="clip" href="https://drive.google.com/file/d/1N0fF_DZMHfw3OgnK4Gh81IQU1ilI1Axj/view" target="_blank">product_photoshoot_1.mov · 0:15 to 0:20 <span class="ext">↗</span></a></div>
+  </div>
+</div>
+
+<h2 class="sec">The Turn · 20 to 30s (chat + reaction)</h2>
+
+<div class="beat">
+  <div><div class="no">08</div><div class="time">20.0 to 23.0s</div><div class="kind"><span class="tag splice">SPLICE</span></div></div>
+  <div class="frames">
+    <div class="fr reel"><div class="flbl">Reel ref · 10.6s</div><img src="thumbs/ref08.jpg" alt="reel setup detail"></div>
+    <div class="fr mas"><div class="flbl">Masonry splice</div><img src="thumbs/s3_clarify.jpg" alt="masonry aspect ratio question"></div>
+  </div>
+  <div class="txt">
+    <div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">✎</span> On-frame text</div>
+      <div class="ontext" contenteditable="true" data-id="t08">it even asks your aspect ratio 🤯</div></div>
+    <p class="reeltext"><b>Reel wrote:</b> "click MCP"</p>
+    <div class="field"><b>Splice:</b> <a class="clip" href="https://drive.google.com/file/d/1N0fF_DZMHfw3OgnK4Gh81IQU1ilI1Axj/view" target="_blank">product_photoshoot_1.mov · 0:21 to 0:26 <span class="ext">↗</span></a></div>
+  </div>
+</div>
+
+<div class="beat">
+  <div><div class="no">09</div><div class="time">23.0 to 26.0s</div><div class="kind"><span class="tag shoot">FILMS</span></div></div>
+  <div class="frames">
+    <div class="fr reel"><div class="flbl">Reel ref · 1.4s</div><img src="thumbs/ref02.jpg" alt="reel reaction face"></div>
+    <div class="fr film"><div class="flbl" style="color:var(--shoot)">Fatima films</div><div class="box">Quick reaction to the screen, eyebrows up, genuine surprise</div></div>
+  </div>
+  <div class="txt">
+    <div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">✎</span> On-frame text <span style="color:var(--muted);font-weight:600;text-transform:none;letter-spacing:0">(optional, can be a clean reaction)</span></div>
+      <div class="ontext" contenteditable="true" data-id="t09">nah this is actually insane</div></div>
+    <p class="reeltext"><b>Reel wrote:</b> (surprised face)</p>
+    <div class="field"><b>Mirror:</b> reuse the reel's surprised-face energy. Cut back to Fatima reacting to what is on screen.</div>
+  </div>
+</div>
+
+<div class="beat">
+  <div><div class="no">10</div><div class="time">26.0 to 30.0s</div><div class="kind"><span class="tag splice">SPLICE</span></div></div>
+  <div class="frames">
+    <div class="fr reel"><div class="flbl">Reel ref · 17.1s</div><img src="thumbs/ref10.jpg" alt="reel watch it cook"></div>
+    <div class="fr mas"><div class="flbl">Masonry splice</div><img src="thumbs/s3_shots.jpg" alt="masonry shot list building"></div>
+  </div>
+  <div class="txt">
+    <div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">✎</span> On-frame text</div>
+      <div class="ontext" contenteditable="true" data-id="t10">watch it cook 👀</div></div>
+    <p class="reeltext"><b>Reel wrote:</b> "watch it cook 🧑‍🍳"</p>
+    <div class="field"><b>Splice:</b> <a class="clip" href="https://drive.google.com/file/d/1N0fF_DZMHfw3OgnK4Gh81IQU1ilI1Axj/view" target="_blank">product_photoshoot_1.mov · 0:33 to 0:38 <span class="ext">↗</span></a></div>
+  </div>
+</div>
+
+<h2 class="sec">The Reveal + CTA · 30 to 42s</h2>
+
+<div class="beat">
+  <div><div class="no">11</div><div class="time">30.0 to 36.5s</div><div class="kind"><span class="tag splice">SPLICE</span></div></div>
+  <div class="frames">
+    <div class="fr reel"><div class="flbl">Reel ref · 19.2s</div><img src="thumbs/ref11.jpg" alt="reel jewelry reveal"></div>
+    <div class="fr mas"><div class="flbl">Masonry splice</div><img src="thumbs/s3_output.jpg" alt="masonry output canvas"></div>
+  </div>
+  <div class="txt">
+    <div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">✎</span> On-frame text</div>
+      <div class="ontext" contenteditable="true" data-id="t11">18 studio shots from ONE photo</div></div>
+    <p class="reeltext"><b>Reel wrote:</b> "watch it cook 🧑‍🍳" (over the reveal)</p>
+    <div class="field"><b>Splice:</b> <a class="clip" href="https://drive.google.com/file/d/1N0fF_DZMHfw3OgnK4Gh81IQU1ilI1Axj/view" target="_blank">product_photoshoot_1.mov · 0:39 to 0:49 (slow scroll) <span class="ext">↗</span></a></div>
+  </div>
+</div>
+
+<div class="beat">
+  <div><div class="no">12</div><div class="time">36.5 to 39.5s</div><div class="kind"><span class="tag splice">SPLICE</span></div></div>
+  <div class="frames">
+    <div class="fr reel"><div class="flbl">Reel ref · 20.6s</div><img src="thumbs/ref12.jpg" alt="reel jewelry closeup"></div>
+    <div class="fr mas"><div class="flbl">Masonry splice</div><img src="thumbs/s3_output.jpg" alt="masonry hero result"></div>
+  </div>
+  <div class="txt">
+    <div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">✎</span> On-frame text</div>
+      <div class="ontext" contenteditable="true" data-id="t12">and you honestly can't tell it's AI</div></div>
+    <p class="reeltext"><b>Reel wrote:</b> "watch it cook 🧑‍🍳"</p>
+    <div class="field"><b>Splice:</b> <a class="clip" href="https://drive.google.com/file/d/1N0fF_DZMHfw3OgnK4Gh81IQU1ilI1Axj/view" target="_blank">product_photoshoot_1.mov · 0:49 to 0:51 (end frame) <span class="ext">↗</span></a></div>
+  </div>
+</div>
+
+<div class="beat">
+  <div><div class="no">13</div><div class="time">39.5 to 42.0s</div><div class="kind"><span class="tag overlay">OVERLAY</span></div></div>
+  <div class="frames">
+    <div class="fr reel"><div class="flbl">Reel ref · 21.3s</div><img src="thumbs/ref13.jpg" alt="reel end frame"></div>
+    <div class="fr mas"><div class="flbl">Masonry splice</div><img src="thumbs/s3_output.jpg" alt="masonry final frozen"></div>
+  </div>
+  <div class="txt">
+    <div class="ontext-wrap"><div class="ontext-lbl"><span class="pencil">✎</span> On-frame text</div>
+      <div class="ontext" contenteditable="true" data-id="t13">comment "SHOOT" for the link 👇</div></div>
+    <p class="reeltext"><b>Reel wrote:</b> "watch it cook 🧑‍🍳" (end hold)</p>
+    <div class="field"><b>Source:</b> text overlay on the last output frame (freeze).</div>
+  </div>
+</div>
+
+<div class="note" style="margin-top:26px">
+  <b>Swap point.</b> If you ever want Fatima to demo her own product instead of the recorded lip balm, frames 06 through 12 become "she films her own Masonry run" and everything else stays identical.
+</div>
+
+<footer>
+  Masonry UGC creator system · Product Photoshoot · Fatima · reel frames from productiveashley, Masonry B-roll from Drive Steps 1 to 3.
+  On-frame text is editable and autosaves in this browser. Use "Copy all on-frame text" to export. No em dashes, no voiceover. Timecodes approximate to the nearest second.
+</footer>
+
+</div>
+
+<script>
+  var KEY = 'ppfatima-v1';
+  var fields = Array.prototype.slice.call(document.querySelectorAll('.ontext'));   // on-frame text
+  var inputs = Array.prototype.slice.call(document.querySelectorAll('.reelin'));   // reel link inputs
+  var savedMsg = document.getElementById('savedMsg');
+  var defaults = {};
+  fields.forEach(function(f){ defaults[f.dataset.id] = f.textContent; });
+
+  function refreshOpenLinks(){
+    document.querySelectorAll('.reelopen').forEach(function(a){
+      var inp = document.querySelector('.reelin[data-id="'+a.dataset.for+'"]');
+      var v = inp && inp.value.trim();
+      if(v){ a.href = v; a.classList.add('on'); } else { a.classList.remove('on'); }
+    });
+  }
+  function load(){
+    var data;
+    try { data = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){ data = {}; }
+    fields.forEach(function(f){ if (data[f.dataset.id] !== undefined) f.textContent = data[f.dataset.id]; });
+    inputs.forEach(function(i){ if (data[i.dataset.id] !== undefined) i.value = data[i.dataset.id]; });
+    refreshOpenLinks();
+  }
+  function save(){
+    var data = {};
+    fields.forEach(function(f){ data[f.dataset.id] = f.textContent; });
+    inputs.forEach(function(i){ data[i.dataset.id] = i.value; });
+    localStorage.setItem(KEY, JSON.stringify(data));
+    savedMsg.classList.add('show');
+    clearTimeout(save._t);
+    save._t = setTimeout(function(){ savedMsg.classList.remove('show'); }, 1000);
+  }
+  fields.forEach(function(f){ f.addEventListener('input', save); });
+  inputs.forEach(function(i){ i.addEventListener('input', function(){ save(); refreshOpenLinks(); }); });
+
+  function copyAll(){
+    var btn = event.target, o = btn.textContent;
+    var lines = fields.map(function(f){ return f.dataset.id.toUpperCase() + ': ' + f.textContent.trim(); }).join('\n');
+    navigator.clipboard.writeText(lines).then(function(){
+      btn.textContent = 'Copied ✓'; setTimeout(function(){ btn.textContent = o; }, 1200);
+    });
+  }
+  function resetAll(){
+    if(!confirm('Reset all on-frame text to the original lines? (reel links are kept)')) return;
+    fields.forEach(function(f){ f.textContent = defaults[f.dataset.id]; });
+    save();
+  }
+  // Save a real .html file with the current edits baked in (references the thumbs/ folder).
+  function exportHTML(){
+    inputs.forEach(function(i){ i.setAttribute('value', i.value); });   // bake input values so they serialize
+    var doc = '<!doctype html>\n<html lang="en">\n' + document.documentElement.innerHTML + '\n</html>';
+    var blob = new Blob([doc], {type:'text/html'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'product-photoshoot-fatima_edited.html';
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+  load();
+</script>
+</body>
+</html>
